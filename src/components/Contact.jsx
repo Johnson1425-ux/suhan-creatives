@@ -82,7 +82,7 @@ const Contact = () => {
             <div className="space-y-8">
               {contactInfo.map((item, index) => (
                 <div key={index} className="flex items-start gap-6">
-                  <div className={`p-4 ${
+                  <div className={`p-4 rounded-lg ${
                     item.color === 'blue' ? 'bg-accent-blue/10 text-accent-blue' : 'bg-accent-orange/10 text-accent-orange'
                   }`}>
                     <item.icon size={24} />
