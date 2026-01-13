@@ -182,7 +182,7 @@ const Contact = () => {
                 <button
                   type="button"
                   onClick={(e) => handleSubmit(e, 'whatsapp')}
-                  className="flex-1 px-8 py-4 bg-[#25D366] hover:bg-[#25D366]/90 text-white font-semibold tracking-wide rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
+                  className="flex-1 px-8 py-2 bg-[#25D366] hover:bg-[#25D366]/90 text-white font-semibold tracking-wide rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
                 >
                   <FaWhatsapp size={20} />
                   Send via WhatsApp
