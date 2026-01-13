@@ -174,8 +174,8 @@ const Contact = () => {
                   onClick={(e) => handleSubmit(e, 'email')}
                   className="flex-1 px-8 py-4 bg-accent-blue hover:bg-accent-blue/90 text-white font-semibold tracking-wide rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
                 >
-                  Send via Email
                   <Mail size={18} />
+                  Send via Email
                 </button>
 
                 <button
@@ -183,8 +183,8 @@ const Contact = () => {
                   onClick={(e) => handleSubmit(e, 'whatsapp')}
                   className="flex-1 px-8 py-4 bg-[#25D366] hover:bg-[#25D366]/90 text-white font-semibold tracking-wide rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
                 >
-                  WhatsApp Us
                   <Send size={18} />
+                  Send via WhatsApp
                 </button>
               </div>
             </form>
