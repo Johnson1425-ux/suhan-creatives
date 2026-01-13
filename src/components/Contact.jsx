@@ -173,7 +173,7 @@ const Contact = () => {
                 <button
                   type="button"
                   onClick={(e) => handleSubmit(e, 'email')}
-                  className="flex-1 px-8 py-4 bg-white hover:bg-white text-black font-semibold tracking-wide rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
+                  className="flex-1 px-8 py-2 bg-white hover:bg-white text-black font-semibold tracking-wide rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
                 >
                   <Mail size={20} />
                   Send via Email
