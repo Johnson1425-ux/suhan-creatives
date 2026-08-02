@@ -61,9 +61,9 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-24 px-6 lg:px-40 bg-primary scroll-mt-24">
-      <div className="max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+    <section id="contact" className="section-shell">
+      <div className="section-inner">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Left Side: Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -71,17 +71,17 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="font-display text-5xl md:text-7xl font-bold mb-8">
-              Let's <span className="text-gradient">Connect</span>
+            <h2 className="font-display text-4xl sm:text-5xl md:text-7xl font-bold mb-6">
+              Let's <span className="text-accent-orange">Connect</span>
             </h2>
-            <p className="text-xl text-gray-400 mb-12 max-w-lg">
+            <p className="text-lg md:text-xl text-gray-400 mb-10 max-w-lg">
               Have a project in mind? We'd love to hear from you. Choose your preferred way to reach out below.
             </p>
 
             <div className="space-y-8">
               {contactInfo.map((item, index) => (
-                <div key={index} className="flex items-start gap-6">
-                  <div className={`p-4 ${
+                <div key={index} className="flex items-start gap-5">
+                  <div className={`flex-shrink-0 rounded-xl p-3.5 ${
                     item.color === 'blue' ? 'bg-accent-blue/10 text-accent-blue' : 'bg-accent-orange/10 text-accent-orange'
                   }`}>
                     <item.icon size={24} />
@@ -89,11 +89,11 @@ const Contact = () => {
                   <div>
                     <p className="text-sm text-gray-500 uppercase tracking-widest mb-1">{item.label}</p>
                     {item.href ? (
-                      <a href={item.href} className="text-xl font-medium hover:text-accent-blue transition-colors">
+                      <a href={item.href} className="text-base sm:text-lg md:text-xl font-medium break-all hover:text-accent-blue transition-colors">
                         {item.value}
                       </a>
                     ) : (
-                      <p className="text-xl font-medium">{item.value}</p>
+                      <p className="text-base sm:text-lg md:text-xl font-medium">{item.value}</p>
                     )}
                   </div>
                 </div>
@@ -107,7 +107,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="bg-primary-light p-8 md:p-12 border border-gray-800 rounded-lg"
+            className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8 md:p-10"
           >
             <form className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -120,7 +120,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                      className="w-full px-4 py-3 bg-primary rounded-lg border border-gray-800 text-gray-100 focus:border-accent-blue focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 rounded-xl border border-white/10 bg-black/40 text-gray-100 placeholder:text-gray-500 focus:border-accent-blue focus:outline-none focus:ring-1 focus:ring-accent-blue/40 transition-colors"
                     placeholder="Your name"
                   />
                 </div>
@@ -133,7 +133,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-primary rounded-lg border border-gray-800 text-gray-100 focus:border-accent-blue focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 rounded-xl border border-white/10 bg-black/40 text-gray-100 placeholder:text-gray-500 focus:border-accent-blue focus:outline-none focus:ring-1 focus:ring-accent-blue/40 transition-colors"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -148,7 +148,7 @@ const Contact = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-primary rounded-lg border border-gray-800 text-gray-100 focus:border-accent-blue focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-black/40 text-gray-100 placeholder:text-gray-500 focus:border-accent-blue focus:outline-none focus:ring-1 focus:ring-accent-blue/40 transition-colors"
                   placeholder="Project inquiry"
                 />
               </div>
@@ -162,7 +162,7 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows="4"
-                  className="w-full px-4 py-3 bg-primary rounded-lg border border-gray-800 text-gray-100 focus:border-accent-blue focus:outline-none transition-colors resize-none"
+                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-black/40 text-gray-100 placeholder:text-gray-500 focus:border-accent-blue focus:outline-none focus:ring-1 focus:ring-accent-blue/40 transition-colors resize-none"
                   placeholder="Tell us about your project..."
                 ></textarea>
               </div>
@@ -172,7 +172,7 @@ const Contact = () => {
                 <button
                   type="button"
                   onClick={(e) => handleSubmit(e, 'email')}
-                  className="flex-1 px-4 py-2 bg-white hover:bg-white text-sm text-black whitespace-nowrap font-semibold tracking-wide rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-3 bg-accent-blue text-sm text-black font-semibold tracking-wide rounded-xl transition-all duration-300 hover:brightness-110 flex items-center justify-center gap-2"
                 >
                   <Mail size={18} />
                   Send via Email
@@ -181,7 +181,7 @@ const Contact = () => {
                 <button
                   type="button"
                   onClick={(e) => handleSubmit(e, 'whatsapp')}
-                  className="flex-1 px-2 py-2 bg-[#25D366] hover:bg-[#25D366]/90 text-sm text-white whitespace-nowrap font-semibold tracking-wide rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-3 bg-[#25D366] hover:bg-[#25D366]/90 text-sm text-black font-semibold tracking-wide rounded-xl transition-all duration-300 flex items-center justify-center gap-2"
                 >
                   <Send size={18} />
                   Send via WhatsApp

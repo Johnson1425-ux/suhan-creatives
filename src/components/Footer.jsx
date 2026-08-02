@@ -4,8 +4,8 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="py-12 px-6 lg:px-12 border-t border-gray-800">
-      <div className="max-w-5xl mx-auto">
+    <footer className="relative border-t border-white/10 py-10 px-6 md:px-10 lg:px-16">
+      <div className="section-inner">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Copyright */}
           <div className="text-gray-400 text-sm flex items-center gap-2">
@@ -13,7 +13,7 @@ const Footer = () => {
           </div>
 
           {/* Links */}
-          <div className="flex gap-8">
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-3">
             <a
               href="#work"
               className="text-gray-400 hover:text-accent-blue transition-colors text-sm"

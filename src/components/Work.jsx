@@ -79,8 +79,8 @@ const Work = () => {
   };
 
   return (
-    <section id="work" className="py-24 px-6 lg:px-40 scroll-mt-24">
-      <div className="max-w-5xl mx-auto px-6">
+    <section id="work" className="section-shell">
+      <div className="section-inner">
         {/* Section Header */}
         <motion.div
           className="mb-16"
@@ -89,9 +89,8 @@ const Work = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          {/* Fixed the class name from text-gradient to text-gradient-dual to match index.css */}
-          <h2 className="font-display text-5xl md:text-7xl font-bold mb-4">
-            Selected <span className="text-gradient">Work</span>
+          <h2 className="font-display text-4xl sm:text-5xl md:text-7xl font-bold mb-4">
+            Selected <span className="text-accent-blue">Work</span>
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl">
             A curated collection of projects showcasing creative problem-solving and visual storytelling
@@ -110,14 +109,15 @@ const Work = () => {
             <motion.div
               key={project.id}
               variants={itemVariants}
-              className="group cursor-pointer"
+              className="group cursor-pointer rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition-colors duration-300 hover:border-white/20"
             >
               {/* Project Image */}
-              <div className="rounded-lg relative overflow-hidden bg-primary-light mb-6 aspect-[4/3]">
+              <div className="relative mb-5 aspect-[4/3] overflow-hidden rounded-xl bg-gradient-to-br from-white/[0.06] to-white/[0.02]">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className={`absolute inset-0 bg-gradient-to-t ${
                   project.color === 'blue' 
@@ -129,7 +129,7 @@ const Work = () => {
               </div>
 
               {/* Project Info */}
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {/* Fixed the class names to use accent-blue/orange */}
                 <p className={`text-sm font-semibold tracking-widest uppercase ${
                   project.color === 'blue' ? 'text-accent-blue' : 'text-accent-orange'
@@ -150,7 +150,7 @@ const Work = () => {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-xs px-3 py-1 bg-accent-blue border border-gray-800 text-black"
+                      className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs text-gray-300"
                     >
                       {tag}
                     </span>

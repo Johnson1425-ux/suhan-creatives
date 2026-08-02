@@ -34,26 +34,26 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-24 px-6 lg:px-40 scroll-mt-24">
-      <div className="max-w-5xl mx-auto">
+    <section id="services" className="section-shell">
+      <div className="section-inner">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="font-display text-5xl md:text-7xl font-bold mb-6">
-            What I Do
+          <h2 className="font-display text-4xl sm:text-5xl md:text-7xl font-bold mb-6">
+            What We <span className="text-accent-blue">Do</span>
           </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            I offer comprehensive design services to help your brand stand out and connect with your audience
+            Comprehensive design services to help your brand stand out and connect with your audience
           </p>
         </motion.div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -61,7 +61,7 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group p-8 bg-primary-light rounded-lg border border-gray-800 hover:border-accent-blue transition-all duration-500"
+              className="group rounded-2xl border border-white/10 bg-white/[0.03] p-8 transition-all duration-500 hover:border-accent-blue/50 hover:bg-white/[0.05]"
             >
               {/* Icon */}
               <div className={`mb-6 inline-flex p-4 transition-all duration-300 ${
@@ -88,7 +88,7 @@ const Services = () => {
               <ul className="space-y-2">
                 {service.features.map((feature) => (
                   <li key={feature} className="flex items-center text-gray-300 text-sm">
-                    <span className={`w-1.5 h-1.5 mr-3 ${
+                    <span className={`w-1.5 h-1.5 rounded-full mr-3 flex-shrink-0 ${
                       service.color === 'blue' ? 'bg-accent-blue' : 'bg-accent-orange'
                     }`}></span>
                     {feature}
