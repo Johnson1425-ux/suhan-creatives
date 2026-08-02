@@ -36,12 +36,12 @@ declared dependency but is **not imported anywhere**; icons come from
 index.html            # Vite entry; loads Inter from Google Fonts; sets <title>
 src/main.jsx          # ReactDOM.createRoot → <App /> in StrictMode
 src/App.jsx           # composes every section in fixed order
-src/index.css         # Tailwind directives + .text-gradient / .bg-gradient-brand
+src/index.css         # Tailwind directives, :root accent vars, .section-shell/.section-inner
 src/assets/logo.jpeg  # brand mark, imported by Navigation.jsx
 src/components/
   Navigation.jsx      # fixed glass navbar, IntersectionObserver scroll-spy, mobile menu
-  GridBackground.jsx  # decorative fixed grid + glow layers (position:fixed, -z-10)
-  Hero.jsx            # full-viewport headline + two CTAs
+  GridBackground.jsx  # decorative grid + glow layers (absolute, z-0, inside the card)
+  Hero.jsx            # headline + two CTAs
   Work.jsx            # 6-project grid (hardcoded array)
   About.jsx           # bio + skills chips
   Services.jsx        # 4 service cards (hardcoded array)
@@ -57,17 +57,28 @@ everything else:
 ```jsx
 <div className="relative overflow-x-hidden bg-black">
   <Navigation />
-  <div className="mx-3 rounded-3xl overflow-hidden bg-[#0d0d0f] relative">
-    <GridBackground /> …sections… <Footer />
+  <div className="mx-3 mb-3 rounded-3xl overflow-hidden relative isolate">
+    <GridBackground />                {/* z-0, paints the base surface */}
+    <div className="relative z-10">…sections… <Footer /></div>
   </div>
 </div>
 ```
 
 The `mx-3 rounded-3xl overflow-hidden` wrapper is the site's signature "inset
-card" look. `overflow-hidden` on it clips anything a section tries to bleed
-outside, and `overflow-x-hidden` on the outer div is what keeps the oversized
-blur orbs from creating a horizontal scrollbar. Removing either will visibly
-break the layout.
+card" look. `overflow-hidden` clips anything a section tries to bleed outside,
+and `overflow-x-hidden` on the outer div keeps the oversized blur orbs from
+creating a horizontal scrollbar. Removing either will visibly break the layout.
+
+Three things here are load-bearing and easy to undo by accident:
+
+- The card must **not** set its own background. `GridBackground` paints the base
+  `#0d0d0f`. Putting `bg-[#0d0d0f]` back on the card covers the grid completely.
+- `isolate` creates the stacking context that keeps `GridBackground` at z-0
+  behind the content instead of behind the page.
+- Sections live inside a `relative z-10` wrapper so they stack above the grid.
+
+The navbar's `left-3 right-3` deliberately matches the card's `mx-3` so their
+edges line up. Change one and you must change the other.
 
 ### Navigation and section IDs
 
@@ -77,23 +88,19 @@ you must update **three** places: the section's `id`, the `navLinks` array and
 the `sectionIds` array in `Navigation.jsx`, and the anchor links in
 `Footer.jsx`.
 
-Scroll offset for the fixed navbar is handled twice — `scroll-padding-top: 120px`
-in `index.css` and `scroll-mt-24` on each section. Keep both in sync with the
-navbar's `h-20` height when changing it.
-
-`Navigation.jsx` styles the active link with `var(--accent-blue, #60a5fa)`. That
-CSS custom property is **never defined anywhere**, so the fallback `#60a5fa` is
-what actually renders. Either define `--accent-blue` in `index.css` or switch to
-the Tailwind `accent-blue` token — don't add more references to the undefined
-variable.
+Scroll offset for the fixed navbar is handled in two places — `scroll-padding-top:
+7rem` on `html` and `scroll-mt-28` baked into `.section-shell`. Keep both in sync
+with the navbar height (`h-16 md:h-20` plus `mt-3`) if you change it.
 
 ### GridBackground
 
-Uses `position: fixed` with `-z-10` for the base, grid lines, glow orbs, and edge
-fade. Because it's fixed rather than absolute, the background does not scroll
-with the page and is not actually constrained by the rounded container it sits
-inside. It is purely decorative and safe to reorder, but any new section that
-needs to sit above it requires a positive `z-index` or `relative z-10`.
+`absolute inset-0 z-0` inside the card: base surface, two offset grid layers,
+three glow orbs spread down the page, and a bottom fade. Purely decorative and
+`pointer-events-none`.
+
+It previously used `position: fixed` with `-z-10`, which put it behind the card's
+own opaque background — the grid never rendered at all. If the grid disappears
+again, that layering is the first thing to check.
 
 ## Conventions
 
@@ -102,10 +109,18 @@ needs to sit above it requires a positive `z-index` or `relative z-10`.
   shared UI primitives — each section is self-contained.
 - **Imports**: relative paths only (`./components/Hero`), no path aliases.
 - **Styling**: Tailwind utility classes inline. Reach for arbitrary values
-  (`bg-[#0d0d0f]`, `w-[600px]`) rather than extending the config. Only two custom
-  classes exist, both in `index.css`: `.text-gradient` (blue→orange text) and
-  `.bg-gradient-brand`. Inline `style={{}}` is used only where a value is
-  computed at runtime.
+  (`bg-[#0d0d0f]`, `w-[600px]`) rather than extending the config. Inline
+  `style={{}}` only where a value is computed at runtime.
+- **Section rhythm**: every section uses the `.section-shell` /`.section-inner`
+  pair from `index.css` (`section-shell` = padding, gutters and `scroll-mt-28`;
+  `section-inner` = `max-w-6xl mx-auto`). Use them rather than hand-rolling
+  per-section padding — that is what previously left Work on different gutters
+  from everything else.
+- **No two-accent gradients.** Blue and orange are near-complementary, so
+  interpolating between them greys out at the midpoint in sRGB and oklab, and
+  detours through cyan or magenta in oklch. Emphasis words and CTAs use *solid*
+  accent colours, alternating blue/orange section to section. `index.css` carries
+  a comment saying so; don't reintroduce `.text-gradient`.
 - **Animation**: `framer-motion` everywhere. Above-the-fold content
   (Navigation, Hero) uses `initial` + `animate` with staggered `delay`; every
   section below the fold uses `initial` + `whileInView` with
@@ -140,11 +155,14 @@ and one orange dot, wordmark "SUHAN" in orange and "CREATIVES" in blue.
 Fonts: Inter for both `font-sans` and `font-display`, loaded from Google Fonts in
 `index.html` (not self-hosted).
 
-Three blue/orange palettes are currently in play and they do not match: the
-Tailwind tokens above, the `.text-gradient` / `.bg-gradient-brand` gradients in
-`index.css` (`#5B9FFF` → `#FFB84D`), and the raw `rgba(59, 130, 246, …)` /
-`rgba(251, 146, 60, …)` grid lines in `GridBackground.jsx`. If you touch brand
-color, consolidate onto the Tailwind tokens rather than adding a fourth variant.
+The same two accents are also mirrored as CSS custom properties (`--accent-blue`,
+`--accent-orange`) on `:root` in `index.css`, which is what `GridBackground`'s
+rgba grid lines are derived from. Everything is on one palette now — if you touch
+brand colour, change the Tailwind token and the `:root` variable together rather
+than introducing a third value.
+
+The header wordmark renders "Suhan" orange and "Creatives" blue to match the
+logo lockup.
 
 ## Real vs. placeholder content
 

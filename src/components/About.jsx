@@ -13,18 +13,18 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-24 px-6 lg:px-40 bg-white/2 scroll-mt-24">
-      <div className="max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section id="about" className="section-shell bg-white/[0.02]">
+      <div className="section-inner">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Column - Image */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative"
+            className="relative mx-auto w-full max-w-sm lg:max-w-none"
           >
-            <div className="aspect-[3/4] bg-gradient-to-br from-accent-blue to-accent-orange relative overflow-hidden">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-gradient-to-br from-accent-blue to-accent-orange">
               <div className="absolute inset-0 bg-primary/30"></div>
               <img
                 src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=800&fit=crop"
@@ -33,8 +33,8 @@ const About = () => {
               />
             </div>
             {/* Decorative Element */}
-            <div className="absolute -bottom-6 -right-6 w-32 h-32 border-4 border-accent-blue"></div>
-            <div className="absolute -top-6 -left-6 w-20 h-20 bg-accent-orange"></div>
+            <div className="pointer-events-none absolute -bottom-4 -right-4 hidden h-28 w-28 rounded-2xl border-4 border-accent-blue lg:block" />
+            <div className="pointer-events-none absolute -top-4 -left-4 hidden h-16 w-16 rounded-xl bg-accent-orange lg:block" />
           </motion.div>
 
           {/* Right Column - Content */}
@@ -44,11 +44,11 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h2 className="font-display text-5xl md:text-6xl font-bold mb-6">
-              About <span className="text-gradient">Suhan Creatives</span>
+            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
+              About <span className="text-accent-orange">Suhan Creatives</span>
             </h2>
 
-            <div className="space-y-6 text-gray-400 leading-relaxed text-lg">
+            <div className="space-y-5 text-gray-400 leading-relaxed text-base md:text-lg">
               <p>
                 At Suhan Creatives, we're passionate about creating meaningful brand experiences that connect with people on an emotional level. With over 8 years of experience, we've worked with startups and established brands across various industries.
               </p>
@@ -73,10 +73,10 @@ const About = () => {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: index * 0.05 }}
-                    className={`px-4 py-2 bg-primary border font-medium text-sm tracking-wide transition-all duration-300 ${
-                      index % 2 === 0 
-                        ? 'border-accent-blue text-gray-300 hover:border-accent-blue hover:text-accent-blue' 
-                        : 'border-accent-orange text-gray-300 hover:border-accent-orange hover:text-accent-orange'
+                    className={`rounded-full border px-4 py-2 text-sm font-medium tracking-wide transition-all duration-300 ${
+                      index % 2 === 0
+                        ? 'border-accent-blue/40 text-gray-300 hover:border-accent-blue hover:text-accent-blue'
+                        : 'border-accent-orange/40 text-gray-300 hover:border-accent-orange hover:text-accent-orange'
                     }`}
                   >
                     {skill}

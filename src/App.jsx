@@ -12,14 +12,20 @@ function App() {
     <div className="relative overflow-x-hidden bg-black">
       <Navigation />
       
-      <div className="mx-3 rounded-3xl overflow-hidden bg-[#0d0d0f] relative">
-        <GridBackground /> 
-        <Hero />
-        <Work />
-        <About />
-        <Services />
-        <Contact />
-        <Footer />
+      {/* `isolate` scopes the z-indexes below so GridBackground can sit at z-0
+          without escaping behind the page. The card paints no background of its
+          own — GridBackground supplies the base surface. */}
+      <div className="mx-3 mb-3 rounded-3xl overflow-hidden relative isolate">
+        <GridBackground />
+
+        <div className="relative z-10">
+          <Hero />
+          <Work />
+          <About />
+          <Services />
+          <Contact />
+          <Footer />
+        </div>
       </div>
     </div>
   );
