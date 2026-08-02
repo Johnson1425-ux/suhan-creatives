@@ -15,7 +15,7 @@ the product name is Suhan Creatives.
 ## Commands
 
 ```bash
-npm install        # first-time setup (npm ci fails — package-lock is out of sync)
+npm install        # first-time setup (npm ci also works)
 npm run dev        # Vite dev server on http://localhost:5173
 npm run build      # production build → dist/
 npm run preview    # serve the built dist/ locally
@@ -197,8 +197,6 @@ Default branch is `main`. Work on a feature branch and push with
 
 ## Gotchas
 
-- `npm ci` fails — the lockfile is out of sync with `package.json`. Use
-  `npm install`.
 - The build warns that `caniuse-lite` data is stale. Harmless; ignore it unless
   asked to refresh.
 - The JS bundle is ~283 kB (91 kB gzipped), largely framer-motion. There is no
